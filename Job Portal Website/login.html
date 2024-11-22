@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SPR Job Portal - Login & Register</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #4CAF50;
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 36px;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 80%;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #388e3c;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link a {
+            color: #4CAF50;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SPR Job Portal</h1>
+    </header>
+
+    <!-- Main Content -->
+    <div id="form-container" class="form-container">
+        <!-- Login Form -->
+        <div id="login-form">
+            <h2>Login</h2>
+            <form id="login" onsubmit="return loginUser(event)">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" required placeholder="Enter your email">
+                
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required placeholder="Enter your password">
+                
+                <button type="submit" class="button">Login</button>
+            </form>
+            <div class="link">
+                <p>Don't have an account? <a href="#" onclick="toggleForms('register')">Register here</a></p>
+            </div>
+            <div class="error" id="login-error"></div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-form" style="display: none;">
+            <h2>Register</h2>
+            <form id="register" onsubmit="return registerUser(event)">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" required placeholder="Enter your email">
+                
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" required placeholder="Enter your password">
+                
+                <label for="register-confirm-password">Confirm Password</label>
+                <input type="password" id="register-confirm-password" required placeholder="Confirm your password">
+                
+                <button type="submit" class="button">Register</button>
+            </form>
+            <div class="link">
+                <p>Already have an account? <a href="#" onclick="toggleForms('login')">Login here</a></p>
+            </div>
+            <div class="error" id="register-error"></div>
+        </div>
+
+        <!-- Success/Error Message -->
+        <div id="message" class="success"></div>
+    </div>
+
+    <script>
+        // Toggle between Login and Register forms
+        function toggleForms(formType) {
+            if (formType === 'register') {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('register-form').style.display = 'block';
+            } else {
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('register-form').style.display = 'none';
+            }
+            document.getElementById('login-error').textContent = '';
+            document.getElementById('register-error').textContent = '';
+            document.getElementById('message').textContent = '';
+        }
+
+        // Register User
+        function registerUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('register-error').textContent = "Passwords do not match!";
+                return;
+            }
+
+            const existingUser = JSON.parse(localStorage.getItem(email));
+            if (existingUser) {
+                document.getElementById('register-error').textContent = "User already exists!";
+                return;
+            }
+
+            const newUser = { email, password };
+            localStorage.setItem(email, JSON.stringify(newUser));
+            document.getElementById('register-error').textContent = '';
+            document.getElementById('message').textContent = 'Registration successful! You can now log in.';
+            setTimeout(() => {
+                toggleForms('login');
+            }, 2000);
+        }
+
+        // Login User
+        function loginUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const existingUser = JSON.parse(localStorage.getItem(email));
+            if (!existingUser) {
+                document.getElementById('login-error').textContent = "User not found!";
+                return;
+            }
+
+            if (existingUser.password !== password) {
+                document.getElementById('login-error').textContent = "Incorrect password!";
+                return;
+            }
+
+            document.getElementById('login-error').textContent = '';
+            document.getElementById('message').textContent = 'Login successful! Redirecting...';
+            setTimeout(() => {
+                // After successful login, redirect to the home page (or another page)
+                window.location.href = 'home.html'; // You can adjust this URL as needed
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SPR Job Portal</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header nav ul li {
+            display: inline;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #f1f1f1;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(to right, #4CAF50, #2e7d32);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 5px solid #2e7d32;
+        }
+
+        .hero-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero-section input {
+            padding: 12px;
+            width: 300px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .hero-section input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .hero-section button {
+            padding: 12px 20px;
+            background-color: #ff6f00;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-section button:hover {
+            background-color: #e65100;
+        }
+
+        /* Job Listings Section */
+        .jobs-section {
+            padding: 60px 0;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .jobs-section h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .job-listings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .job-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: calc(33% - 20px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .job-card p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .job-card button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .job-card button:hover {
+            background-color: #388e3c;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: #4CAF50;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>SPR Job Portal</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#jobs">Jobs</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero-section">
+        <div class="container">
+            <h2>Find your Dream Job with SPR Job Portal</h2>
+            <input type="text" id="search-bar" placeholder="Search for jobs...">
+            <button id="search-btn">Search</button>
+            <button class="logout-btn" id="logout-btn">Logout</button>
+        </div>
+    </section>
+
+    <section id="jobs" class="jobs-section">
+        <div class="container">
+            <h2>Available Jobs</h2>
+            <div class="job-listings" id="job-listings">
+                <!-- Job listings will be dynamically inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>SPR Job Portal is your one-stop destination to find the best job opportunities across various industries.</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 SPR Job Portal. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for dynamic job listings
+        document.addEventListener('DOMContentLoaded', function() {
+            const jobListings = [
+                { title: "Software Engineer", company: "ABC Corp", location: "New York, NY" },
+                { title: "Web Developer", company: "XYZ Ltd", location: "San Francisco, CA" },
+                { title: "Data Scientist", company: "Tech Solutions", location: "Remote" },
+                { title: "Project Manager", company: "Innovate Inc", location: "Austin, TX" },
+                { title: "UX/UI Designer", company: "DesignWorks", location: "Los Angeles, CA" }
+            ];
+
+            const jobListingsContainer = document.getElementById('job-listings');
+
+            jobListings.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.classList.add('job-card');
+                jobCard.innerHTML = `
+                    <h3>${job.title}</h3>
+                    <p><strong>Company:</strong> ${job.company}</p>
+                    <p><strong>Location:</strong> ${job.location}</p>
+                    <button class="apply-btn">Apply Now</button>
+                `;
+                jobListingsContainer.appendChild(jobCard);
+            });
+
+            // Search functionality
+            const searchButton = document.getElementById('search-btn');
+            const searchBar = document.getElementById('search-bar');
+
+            searchButton.addEventListener('click', function() {
+                const searchQuery = searchBar.value.toLowerCase();
+                const filteredJobs = jobListings.filter(job => 
+                    job.title.toLowerCase().includes(searchQuery) || 
+                    job.company.toLowerCase().includes(searchQuery) || 
+                    job.location.toLowerCase().includes(searchQuery)
+                );
+
+                jobListingsContainer.innerHTML = ''; // Clear existing job listings
+
+                filteredJobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.classList.add('job-card');
+                    jobCard.innerHTML = `
+                        <h3>${job.title}</h3>
+                        <p><strong>Company:</strong> ${job.company}</p>
+                        <p><strong>Location:</strong> ${job.location}</p>
+                        <button class="apply-btn">Apply Now</button>
+                    `;
+                    jobListingsContainer.appendChild(jobCard);
+                });
+            });
+
+            // Logout functionality
+            const logoutButton = document.getElementById('logout-btn');
+
+            logoutButton.addEventListener('click', function() {
+                // For demonstration, let's clear session or local storage here
+                localStorage.removeItem('userSession'); // Example of clearing session data
+                alert('You have logged out successfully!');
+                window.location.href = 'login.html'; // Redirect to login page (or home page)
+            });
+        });
+    </script>
+
+</body>
+</html>
